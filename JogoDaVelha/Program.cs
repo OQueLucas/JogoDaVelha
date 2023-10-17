@@ -9,6 +9,7 @@ namespace JogoDaVelha
             bool novoJogo;
             char confirmacao = 'N';
             char adversario = 's';
+            byte dificuldade = 0;
             //Testes.VerificaLinha();
             //Testes.VerificaColuna();
             //Testes.VerificaDiagonal();
@@ -27,6 +28,11 @@ namespace JogoDaVelha
                     if (adversario == 'S')
                     {
                         break;
+                    } else if (adversario == 'M')
+                    {
+                        Console.Write("Qual dificuldade deseja?");
+                        Console.Write("0 - Normal / 1 - Dificil \n> ");
+                        dificuldade = byte.Parse(Console.ReadLine());
                     }
                     Console.Clear();
                 }
@@ -34,7 +40,7 @@ namespace JogoDaVelha
 
                 char[,] jogoDaVelha = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
 
-                Tabuleiro tabuleiro = new(jogoDaVelha, adversario);
+                Tabuleiro tabuleiro = new(jogoDaVelha, adversario, dificuldade);
 
                 tabuleiro.IniciarJogo();
 

@@ -7,14 +7,18 @@
         public char Jogador { get; set; }
         public bool EmPartida { get; set; }
         public bool ProximoTurno { get; set; }
+        public byte Dificuldade { get; set; }
+        public int Linha { get; set; }
+        public int Coluna { get; set; }
 
-        public Tabuleiro(char[,] jogoDaVelha, char adversario)
+        public Tabuleiro(char[,] jogoDaVelha, char adversario, byte dificuldade)
         {
             JogoDaVelha = jogoDaVelha;
             Adversario = adversario;
             Jogador = 'X';
             EmPartida = true;
             ProximoTurno = false;
+            Dificuldade = dificuldade;
         }
 
         public void IniciarJogo()
@@ -25,7 +29,7 @@
                 {
                     Tela.ImprimirPartida(JogoDaVelha);
 
-                    if (Adversario == 'M' && Jogador == 'O')
+                    if (Adversario == 'M' && Jogador == 'X')
                     {
                         MovimentoMaquina();
                     }
@@ -56,36 +60,61 @@
             Console.Write($"Digite onde deseja inserir o {Jogador} de (1-9): ");
             bool entrada = char.TryParse(Console.ReadLine(), out char posicao);
 
-            RealizarJogada(posicao);
-
-            if (!ProximoTurno || !entrada)
+            if (TesteJogada(posicao) == true)
             {
-                Console.Clear();
-                throw new Exception("Casa inserida é invalida!");
+                RealizarJogada();
             }
+
             return true;
         }
 
-
         private bool MovimentoMaquina()
+        {
+            if (Dificuldade == 0)
+            {
+                Facil();
+            }
+            else
+            {
+                Dificil();
+            }
+
+            RealizarJogada();
+
+            return true;
+        }
+        private char Facil()
         {
             Random rng = new();
             int novo = rng.Next(1, 9);
 
             char posicao = char.Parse(novo.ToString());
-            Console.WriteLine(posicao);
-
-            RealizarJogada(posicao);
-
-            if (!ProximoTurno)
-            {
-                Console.Clear();
-                throw new Exception("Casa inserida é invalida!");
-            }
-            return true;
+            TesteJogada(posicao);
+            return posicao;
         }
 
-        private void RealizarJogada(char posicao)
+
+        private char Dificil()
+        {
+            char[] posicoes = { '1', '3', '7', '9' };
+
+            for (int i = 0; i < posicoes.Length; i++)
+            {
+                try
+                {
+                    if (TesteJogada(posicoes[i]))
+                    {
+                        return posicoes[i];
+                    }
+                }
+                catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return Facil();
+        }
+
+        private bool TesteJogada(char posicao)
         {
             for (int i = 0; i < JogoDaVelha.GetLength(0); i++)
             {
@@ -93,18 +122,22 @@
                 {
                     if (posicao == JogoDaVelha[i, j])
                     {
-                        JogoDaVelha[i, j] = Jogador;
-                        ProximoTurno = true;
-                        break;
+                        Linha = i;
+                        Coluna = j;
+                        return true;
                     }
                 }
-                Console.WriteLine();
-                if (ProximoTurno)
-                {
-                    break;
-                }
             }
+            Console.Clear();
+            throw new Exception($"Posicao {posicao} inserida é invalida!");
         }
+
+        private void RealizarJogada()
+        {
+            JogoDaVelha[Linha, Coluna] = Jogador;
+            ProximoTurno = true;
+        }
+
 
         private void PassarTurno()
         {
@@ -114,4 +147,3 @@
         }
     }
 }
-

@@ -11,8 +11,11 @@ namespace JogoDaVelha
             char[,] linhaTres = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { 'X', 'X', 'X' } };
 
             Vitoria.VerificaGanhador('X', linhaUm);
+            Console.ReadLine();
             Vitoria.VerificaGanhador('X', linhaDois);
+            Console.ReadLine();
             Vitoria.VerificaGanhador('X', linhaTres);
+            Console.ReadLine();
         }
         public static void VerificaColuna()
         {
@@ -21,8 +24,11 @@ namespace JogoDaVelha
             char[,] colunaTres = new char[3, 3] { { '1', '2', 'X' }, { '4', '5', 'X' }, { '7', '8', 'X' } };
 
             Vitoria.VerificaGanhador('X', colunaUm);
+            Console.ReadLine();
             Vitoria.VerificaGanhador('X', colunaDois);
+            Console.ReadLine();
             Vitoria.VerificaGanhador('X', colunaTres);
+            Console.ReadLine();
         }
         public static void VerificaDiagonal()
         {
@@ -30,13 +36,16 @@ namespace JogoDaVelha
             char[,] diagonalSecundaria = new char[3, 3] { { '1', '2', 'X' }, { '4', 'X', '6' }, { 'X', '8', '9' } };
 
             Vitoria.VerificaGanhador('X', diagonal);
+            Console.ReadLine();
             Vitoria.VerificaGanhador('X', diagonalSecundaria);
+            Console.ReadLine();
         }
         public static void VerificaEmpate()
         {
             char[,] empate = new char[3, 3] { { 'X', 'O', 'X' }, { 'O', 'O', 'X' }, { 'X', 'X', 'O' } };
 
             Vitoria.VerificaGanhador('X', empate);
+            Console.ReadLine();
         }
     }
 }
