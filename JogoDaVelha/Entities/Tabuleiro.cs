@@ -96,22 +96,13 @@
         private char Dificil()
         {
             char[] posicoes = { '1', '3', '7', '9' };
+            char[] vazio = { '\0', '\0', '\0' };
 
-            var linha = JogadaAvancada.GetPosicaoLinha(Jogador, JogoDaVelha);
-            var coluna = JogadaAvancada.GetPosicaoColuna(Jogador, JogoDaVelha);
+            var linha = JogadaAvancada.GetPosicao(Jogador, JogoDaVelha);
 
-            if (coluna != null)
+            if (Fatality(linha) != '0')
             {
-                foreach (char c in coluna)
-                {
-                    if (c != 'X' && c != 'O' && c != 0)
-                    {
-                        if (TesteJogada(c))
-                        {
-                            return c;
-                        }
-                    }
-                }
+                return Fatality(linha);
             }
 
             for (int i = 0; i < posicoes.Length; i++)
@@ -123,14 +114,15 @@
                         return posicoes[i];
                     }
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     Console.WriteLine(e.Message);
                 }
             }
             return Facil();
         }
 
-        private bool TesteJogada(char posicao)
+        public bool TesteJogada(char posicao)
         {
             for (int i = 0; i < JogoDaVelha.GetLength(0); i++)
             {

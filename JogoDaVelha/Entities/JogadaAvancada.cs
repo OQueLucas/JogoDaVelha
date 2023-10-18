@@ -4,34 +4,37 @@
     {
         public static char[] PosicaoLinha = new char[3];
         public static char[] PosicaoColuna = new char[3];
+        public static char[] PosicaoDiagonal = new char[3];
+        public static char[] PosicaoDiagonalSecundaria = new char[3];
 
-        public static char[] GetPosicaoLinha(char jogador, char[,] jogoDaVelha)
+        public static char[] GetPosicao(char jogador, char[,] jogoDaVelha)
         {
-            char[] linhas = new char[3];
-
             if (VerificaLinha(jogador, jogoDaVelha))
             {
-                linhas = PosicaoLinha;
+                return PosicaoLinha;
             }
-
-            return linhas;
-        }
-
-        public static char[] GetPosicaoColuna(char jogador, char[,] jogoDaVelha)
-        {
-            char[] coluna = new char[3];
-
-            if (VerificaColuna(jogador, jogoDaVelha))
+            else if (VerificaColuna(jogador, jogoDaVelha))
             {
-                coluna = PosicaoColuna;
+                return PosicaoColuna;
             }
-
-            return coluna;
+            else if (VerificaDiagonal(jogador, jogoDaVelha))
+            {
+                return PosicaoDiagonal;
+            }
+            else if (VerificaDiagonalSecundaria(jogador, jogoDaVelha))
+            {
+                return PosicaoDiagonalSecundaria;
+            }
+            else
+            {
+                char[] vazio = { '\0', '\0', '\0' };
+                return vazio;
+            }
         }
 
         public static bool VerificaDiagonal(char jogador, char[,] jogoDaVelha)
         {
-            int count = 0;
+            int countJogador = 0;
 
             for (int i = 0; i < jogoDaVelha.GetLength(0); i++)
             {
@@ -39,19 +42,16 @@
                 {
                     if (jogador == jogoDaVelha[i, j] && i == j)
                     {
-                        count++;
+                        countJogador++;
                     }
                 }
-            }
 
-            if (count == 3)
-            {
-                return true;
+                if (countJogador == 2)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public static bool VerificaDiagonalSecundaria(char jogador, char[,] jogoDaVelha)
