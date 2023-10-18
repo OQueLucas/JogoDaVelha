@@ -126,12 +126,12 @@
             {
                 for (int j = 0; j < jogoDaVelha.GetLength(0); j++)
                 {
-                    PosicaoColuna[j] = jogoDaVelha[i, j];
-                    if (jogador == jogoDaVelha[i, j])
+                    PosicaoColuna[j] = jogoDaVelha[j, i];
+                    if (jogador == jogoDaVelha[j, i])
                     {
                         countJogador++;
                     }
-                    else if (adversario == jogoDaVelha[i, j])
+                    else if (adversario == jogoDaVelha[j, i])
                     {
                         countAdversario++;
                     }
