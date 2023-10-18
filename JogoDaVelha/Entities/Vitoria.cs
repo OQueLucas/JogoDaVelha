@@ -7,41 +7,35 @@
 
         public static bool VerificaGanhador(char jogador, char[,] jogoDaVelha)
         {
-            bool verificaDiagonal = VerificaDiagonal(jogador, jogoDaVelha);
-            bool verificaSecundaria = VerificaDiagonalSecundaria(jogador, jogoDaVelha);
-            bool verificaLinha = VerificaLinha(jogador, jogoDaVelha);
-            bool verificaColuna = VerificaColuna(jogador, jogoDaVelha);
-            bool empate = VerificaEmpate(jogoDaVelha);
-
-            if (verificaDiagonal)
+            if (VerificaDiagonal(jogador, jogoDaVelha))
             {
                 Console.Clear();
                 Tela.ImprimirPartida(jogoDaVelha);
                 Console.WriteLine($"Jogador {jogador} ganhou na diagonal!");
                 return true;
             }
-            else if (verificaSecundaria)
+            else if (VerificaDiagonalSecundaria(jogador, jogoDaVelha))
             {
                 Console.Clear();
                 Tela.ImprimirPartida(jogoDaVelha);
                 Console.WriteLine($"Jogador {jogador} ganhouna diagonal secundária!");
                 return true;
             }
-            else if (verificaLinha)
+            else if (VerificaLinha(jogador, jogoDaVelha))
             {
                 Console.Clear();
                 Tela.ImprimirPartida(jogoDaVelha);
                 Console.WriteLine($"Jogador {jogador} ganhou na {Linha + 1}ª linha!");
                 return true;
             }
-            else if (verificaColuna)
+            else if (VerificaColuna(jogador, jogoDaVelha))
             {
                 Console.Clear();
                 Tela.ImprimirPartida(jogoDaVelha);
                 Console.WriteLine($"Jogador {jogador} ganhou na {Coluna + 1}ª coluna!");
                 return true;
             }
-            else if (empate)
+            else if (VerificaEmpate(jogoDaVelha))
             {
                 Console.Clear();
                 Tela.ImprimirPartida(jogoDaVelha);
@@ -183,7 +177,8 @@
                     if (jogoDaVelha[i, j] == 'X' || jogoDaVelha[i, j] == 'O')
                     {
                         count++;
-                    } else
+                    }
+                    else
                     {
                         break;
                     }

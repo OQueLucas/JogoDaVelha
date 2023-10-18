@@ -56,9 +56,8 @@
 
         private bool MovimentoJogador()
         {
-
             Console.Write($"Digite onde deseja inserir o {Jogador} de (1-9): ");
-            bool entrada = char.TryParse(Console.ReadLine(), out char posicao);
+            char posicao = char.Parse(Console.ReadLine());
 
             if (TesteJogada(posicao) == true)
             {
@@ -83,6 +82,7 @@
 
             return true;
         }
+
         private char Facil()
         {
             Random rng = new();
@@ -93,10 +93,26 @@
             return posicao;
         }
 
-
         private char Dificil()
         {
             char[] posicoes = { '1', '3', '7', '9' };
+
+            var linha = JogadaAvancada.GetPosicaoLinha(Jogador, JogoDaVelha);
+            var coluna = JogadaAvancada.GetPosicaoColuna(Jogador, JogoDaVelha);
+
+            if (coluna != null)
+            {
+                foreach (char c in coluna)
+                {
+                    if (c != 'X' && c != 'O' && c != 0)
+                    {
+                        if (TesteJogada(c))
+                        {
+                            return c;
+                        }
+                    }
+                }
+            }
 
             for (int i = 0; i < posicoes.Length; i++)
             {
@@ -131,13 +147,29 @@
             Console.Clear();
             throw new Exception($"Posicao {posicao} inserida é invalida!");
         }
+        public char Fatality(char[] linha)
+        {
+            if (linha != null)
+            {
+                foreach (char c in linha)
+                {
+                    if (c != 'X' && c != 'O' && c != 0)
+                    {
+                        if (TesteJogada(c))
+                        {
+                            return c;
+                        }
+                    }
+                }
+            }
+            return '0';
+        }
 
         private void RealizarJogada()
         {
             JogoDaVelha[Linha, Coluna] = Jogador;
             ProximoTurno = true;
         }
-
 
         private void PassarTurno()
         {

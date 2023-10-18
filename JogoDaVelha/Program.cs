@@ -41,7 +41,7 @@ namespace JogoDaVelha
                 char[,] jogoDaVelha = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
 
                 Tabuleiro tabuleiro = new(jogoDaVelha, adversario, dificuldade);
-
+                
                 tabuleiro.IniciarJogo();
 
                 Console.Write("Deseja jogar novamente? (S/N)\n> ");
