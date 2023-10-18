@@ -44,6 +44,10 @@
                     {
                         countJogador++;
                     }
+                    if (i == j)
+                    {
+                        PosicaoDiagonal[i] = jogoDaVelha[i, j];
+                    }
                 }
 
                 if (countJogador == 2)
@@ -56,7 +60,7 @@
 
         public static bool VerificaDiagonalSecundaria(char jogador, char[,] jogoDaVelha)
         {
-            int count = 0;
+            int countJogador = 0;
 
             for (int i = 0; i < jogoDaVelha.GetLength(0); i++)
             {
@@ -64,19 +68,20 @@
                 {
                     if (jogador == jogoDaVelha[i, j] && i + j == jogoDaVelha.GetLength(1) - 1)
                     {
-                        count++;
+                        countJogador++;
+                    }
+                    if (i + j == jogoDaVelha.GetLength(1) - 1)
+                    {
+                        PosicaoDiagonalSecundaria[i] = jogoDaVelha[i, j];
                     }
                 }
-            }
 
-            if (count == 3)
-            {
-                return true;
+                if (countJogador == 2)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public static bool VerificaLinha(char jogador, char[,] jogoDaVelha)

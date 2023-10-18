@@ -96,7 +96,6 @@
         private char Dificil()
         {
             char[] posicoes = { '1', '3', '7', '9' };
-            char[] vazio = { '\0', '\0', '\0' };
 
             var linha = JogadaAvancada.GetPosicao(Jogador, JogoDaVelha);
 
